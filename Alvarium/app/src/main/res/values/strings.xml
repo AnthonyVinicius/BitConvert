@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Alvarium</string>
+    <string name="title_activity_converter_screen">ConverterScreen</string>
 </resources>
