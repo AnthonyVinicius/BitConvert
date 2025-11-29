@@ -55,6 +55,9 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.converter.gson)
 
+    // --- Coil ---
+    implementation(libs.coil.compose)
+
     // --- Navigation ---
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
