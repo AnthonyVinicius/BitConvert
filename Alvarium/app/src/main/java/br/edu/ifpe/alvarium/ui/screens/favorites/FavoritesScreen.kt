@@ -29,6 +29,19 @@ fun FavoritesScreen(onNavigateToDetails: (String) -> Unit){
     val coins by viewModel.coins.collectAsState()
 
     Column() {
+
+        Text(
+            text = "Favoritos",
+            style = MaterialTheme.typography.headlineMedium,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+
+        Text(
+            text = "Suas criptomoedas favoritas",
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
+        )
+
         if (coins.isEmpty()) {
             Text("Carregando moedas...",
                 color = MaterialTheme.colorScheme.onBackground)

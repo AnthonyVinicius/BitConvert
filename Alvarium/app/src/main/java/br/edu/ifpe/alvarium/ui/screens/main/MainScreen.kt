@@ -4,12 +4,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -72,13 +76,30 @@ private fun MainScreenContent(
         color = MaterialTheme.colorScheme.onBackground,
         style = MaterialTheme.typography.titleMedium
     )
+    var search by remember { mutableStateOf("") }
 
-    Button(
-        onClick = {},
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Text("Atualizar")
-    }
+    OutlinedTextField(
+        value = search,
+        onValueChange = { search = it },
+        modifier = Modifier
+            .fillMaxWidth(),
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Buscar",
+                tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+            )
+        },
+        placeholder = { Text("Buscar criptomoeda...") },
+        singleLine = true,
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = Color(0xFF6F7CF6),
+            unfocusedBorderColor = Color(0xFF6F7CF6).copy(alpha = 0.4f),
+            focusedLabelColor = Color(0xFF6F7CF6),
+            cursorColor = Color(0xFF6F7CF6)
+        )
+    )
+
 
     Text(
         text = "Principais Criptomoedas",
