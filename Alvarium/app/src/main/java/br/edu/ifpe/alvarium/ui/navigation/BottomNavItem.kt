@@ -11,6 +11,7 @@ sealed class BottomNavItem(
     val icon: ImageVector
 ) {
     object Home : BottomNavItem("home", "Home", Icons.Default.Home)
-    object Search : BottomNavItem("search", "Buscar", Icons.Default.Search)
+    object Convert : BottomNavItem("convert", "Converter", Icons.Default.SwapHoriz)
+
     object Favorites : BottomNavItem("favorites", "Favoritos", Icons.Default.Star)
 }

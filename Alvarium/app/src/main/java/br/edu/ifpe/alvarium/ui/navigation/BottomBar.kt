@@ -37,7 +37,7 @@ fun AlvariumBottomBar(
     ) {
         val items = listOf(
             BottomNavItem.Home,
-            BottomNavItem.Search,
+            BottomNavItem.Convert,
             BottomNavItem.Favorites
         )
 
