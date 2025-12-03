@@ -24,69 +24,85 @@ import br.edu.ifpe.alvarium.ui.theme.AlvariumTheme
 @Composable
 fun ConverterScreen() {
 
-    Column(modifier = Modifier.padding(24.dp)) {
+    val alvariumGradient = Brush.verticalGradient(
+        listOf(Color(0xFF0A0F2A), Color(0xFF12203F))
+    )
 
-        Text(
-            text = "Conversor",
-            style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.onBackground
-        )
-
-        Text(
-            text = "Converta criptomoedas instantaneamente",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Surface(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(20.dp),
-            color = Color(0xFF152342).copy(alpha = 0.65f),
-            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.10f))
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(alvariumGradient),
+        color = Color.Transparent
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(WindowInsets.systemBars.asPaddingValues())
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            Column(modifier = Modifier.padding(24.dp)) {
 
-                CryptoSelector(
-                    title = "De (Crypto)",
-                    icon = "B",
-                    name = "Bitcoin",
-                    code = "BTC"
-                )
+            Text(
+                text = "Conversor",
+                style = MaterialTheme.typography.headlineMedium,
+                color = Color.White
+            )
 
-                Spacer(modifier = Modifier.height(24.dp))
+            Text(
+                text = "Converta criptomoedas instantaneamente",
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color.White.copy(alpha = 0.7f)
+            )
 
-                QuantityInput()
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp),
+                color = Color(0xFF152342).copy(alpha = 0.65f),
+                border = BorderStroke(1.dp, Color.White.copy(alpha = 0.10f))
+            ) {
+                Column(modifier = Modifier.padding(20.dp)) {
 
-                Spacer(modifier = Modifier.height(16.dp))
+                    CryptoSelector(
+                        title = "De (Crypto)",
+                        icon = "B",
+                        name = "Bitcoin",
+                        code = "BTC"
+                    )
 
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    SwapButton()
+                    Spacer(Modifier.height(20.dp))
+
+                    QuantityInput()
+
+                    Spacer(Modifier.height(20.dp))
+
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        SwapButton()
+                    }
+
+                    Spacer(Modifier.height(20.dp))
+
+                    CryptoSelector(
+                        title = "Para (Moeda)",
+                        icon = "R$",
+                        name = "Real Brasileiro",
+                        code = "BRL"
+                    )
+
+                    Spacer(Modifier.height(24.dp))
+
+                    ConvertedCard(
+                        value = "R$ 483.366,97",
+                        rate = "1 BTC = R$ 483.366,97"
+                    )
                 }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                CryptoSelector(
-                    title = "Para (Moeda)",
-                    icon = "R$",
-                    name = "Real Brasileiro",
-                    code = "BRL"
-                )
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                ConvertedCard(
-                    value = "R$ 483.366,97",
-                    rate = "1 BTC = R$ 483.366,97"
-                )
             }
         }
     }
 }
+
 
 
 

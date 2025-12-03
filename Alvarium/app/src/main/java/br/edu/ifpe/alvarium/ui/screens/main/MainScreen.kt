@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -26,12 +25,8 @@ import br.edu.ifpe.alvarium.viewmodel.CoinViewModelFactory
 fun MainScreen(
     onNavigateToDetails: (String) -> Unit = {}
 ) {
-
     val alvariumGradient = Brush.verticalGradient(
-        colors = listOf(
-            Color(0xFF0A0F2A), // topo
-            Color(0xFF12203F)  // base
-        )
+        listOf(Color(0xFF0A0F2A), Color(0xFF12203F))
     )
 
     Surface(
@@ -40,7 +35,6 @@ fun MainScreen(
             .background(alvariumGradient),
         color = Color.Transparent
     ) {
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -53,7 +47,6 @@ fun MainScreen(
     }
 }
 
-
 @Composable
 private fun MainScreenContent(
     onNavigateToDetails: (String) -> Unit
@@ -64,42 +57,43 @@ private fun MainScreenContent(
 
     val coins by viewModel.coins.collectAsState()
 
-
     Text(
         text = "Bem-vindo ao Alvarium!",
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.headlineSmall
+        style = MaterialTheme.typography.headlineMedium,
+        color = MaterialTheme.colorScheme.onBackground
     )
 
     Text(
         text = "Crypto Tracker!",
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.titleMedium
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
     )
+
     var search by remember { mutableStateOf("") }
 
+    // INPUT PADRONIZADO
     OutlinedTextField(
         value = search,
         onValueChange = { search = it },
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
+        placeholder = { Text("Buscar criptomoeda...") },
+        singleLine = true,
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,
-                contentDescription = "Buscar",
-                tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+                contentDescription = null,
+                tint = Color.White.copy(alpha = 0.7f)
             )
         },
-        placeholder = { Text("Buscar criptomoeda...") },
-        singleLine = true,
+        shape = RoundedCornerShape(20.dp),
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = Color(0xFF6F7CF6),
-            unfocusedBorderColor = Color(0xFF6F7CF6).copy(alpha = 0.4f),
-            focusedLabelColor = Color(0xFF6F7CF6),
-            cursorColor = Color(0xFF6F7CF6)
+            unfocusedBorderColor = Color.White.copy(alpha = 0.10f),
+            focusedContainerColor = Color(0xFF152342).copy(alpha = 0.65f),
+            unfocusedContainerColor = Color(0xFF152342).copy(alpha = 0.65f),
+            cursorColor = Color.White
         )
     )
-
 
     Text(
         text = "Principais Criptomoedas",
@@ -108,12 +102,11 @@ private fun MainScreenContent(
     )
 
     if (coins.isEmpty()) {
-        Text("Carregando moedas...",
-            color = MaterialTheme.colorScheme.onBackground)
+        Text("Carregando moedas...", color = Color.White)
     } else {
         LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(coins) { coin ->
                 CriptoCard(
