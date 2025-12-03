@@ -2,6 +2,7 @@
 
 package br.edu.ifpe.alvarium.ui.screens.converter
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -22,16 +23,8 @@ import br.edu.ifpe.alvarium.ui.theme.AlvariumTheme
 
 @Composable
 fun ConverterScreen() {
-    Column(
-        modifier = Modifier
-            .padding(24.dp)
-            .fillMaxWidth()
-            .background(
-                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.1f),
-                shape = RoundedCornerShape(24.dp)
-            )
-            .padding(24.dp)
-    ) {
+
+    Column(modifier = Modifier.padding(24.dp)) {
 
         Text(
             text = "Conversor",
@@ -47,38 +40,55 @@ fun ConverterScreen() {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        CryptoSelector(
-            title = "De (Crypto)",
-            icon = "B",
-            name = "Bitcoin",
-            code = "BTC"
-        )
+        Surface(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(20.dp),
+            color = Color(0xFF152342).copy(alpha = 0.65f),
+            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.10f))
+        ) {
+            Column(modifier = Modifier.padding(24.dp)) {
 
-        Spacer(modifier = Modifier.height(24.dp))
+                CryptoSelector(
+                    title = "De (Crypto)",
+                    icon = "B",
+                    name = "Bitcoin",
+                    code = "BTC"
+                )
 
-        QuantityInput()
+                Spacer(modifier = Modifier.height(24.dp))
 
-        Spacer(modifier = Modifier.height(16.dp))
+                QuantityInput()
 
-        SwapButton()
+                Spacer(modifier = Modifier.height(16.dp))
 
-        Spacer(modifier = Modifier.height(16.dp))
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    SwapButton()
+                }
 
-        CryptoSelector(
-            title = "Para (Moeda)",
-            icon = "R$",
-            name = "Real Brasileiro",
-            code = "BRL"
-        )
+                Spacer(modifier = Modifier.height(16.dp))
 
-        Spacer(modifier = Modifier.height(24.dp))
+                CryptoSelector(
+                    title = "Para (Moeda)",
+                    icon = "R$",
+                    name = "Real Brasileiro",
+                    code = "BRL"
+                )
 
-        ConvertedCard(
-            value = "R$ 483.366,97",
-            rate = "1 BTC = R$ 483.366,97"
-        )
+                Spacer(modifier = Modifier.height(24.dp))
+
+                ConvertedCard(
+                    value = "R$ 483.366,97",
+                    rate = "1 BTC = R$ 483.366,97"
+                )
+            }
+        }
     }
 }
+
+
 
 @Composable
 fun CryptoSelector(
@@ -106,6 +116,16 @@ fun CryptoSelector(
                 value = "$name\n$code",
                 onValueChange = {},
                 readOnly = true,
+                shape = RoundedCornerShape(20.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = Color(0xFF6F7CF6),
+                    unfocusedBorderColor = Color.White.copy(alpha = 0.10f),
+                    focusedContainerColor = Color(0xFF152342).copy(alpha = 0.65f),
+                    unfocusedContainerColor = Color(0xFF152342).copy(alpha = 0.65f),
+                    cursorColor = Color.White,
+                    focusedTrailingIconColor = Color.White,
+                    unfocusedTrailingIconColor = Color.White.copy(alpha = 0.8f)
+                ),
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded)
                 },
@@ -129,15 +149,17 @@ fun CryptoSelector(
 
             ExposedDropdownMenu(
                 expanded = expanded,
-                onDismissRequest = { expanded = false }
+                onDismissRequest = { expanded = false },
+                modifier = Modifier.background(Color(0xFF152342))
             ) {
-                DropdownMenuItem(text = { Text("Bitcoin (BTC)") }, onClick = {})
-                DropdownMenuItem(text = { Text("Ethereum (ETH)") }, onClick = {})
-                DropdownMenuItem(text = { Text("Solana (SOL)") }, onClick = {})
+                DropdownMenuItem(text = { Text("Bitcoin (BTC)", color = Color.White) }, onClick = {})
+                DropdownMenuItem(text = { Text("Ethereum (ETH)", color = Color.White) }, onClick = {})
+                DropdownMenuItem(text = { Text("Solana (SOL)", color = Color.White) }, onClick = {})
             }
         }
     }
 }
+
 
 @Composable
 fun QuantityInput() {
@@ -146,11 +168,22 @@ fun QuantityInput() {
     OutlinedTextField(
         value = quantity,
         onValueChange = { if (it.matches(Regex("""\d*\.?\d*"""))) quantity = it },
-        label = { Text("Quantidade") },
+        label = { Text("Quantidade", color = Color.White.copy(alpha = 0.7f)) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = Color(0xFF6F7CF6),
+            unfocusedBorderColor = Color.White.copy(alpha = 0.10f),
+            focusedContainerColor = Color(0xFF152342).copy(alpha = 0.65f),
+            unfocusedContainerColor = Color(0xFF152342).copy(alpha = 0.65f),
+            cursorColor = Color.White,
+            focusedLabelColor = Color.White,
+        )
     )
 }
+
 
 @Composable
 fun SwapButton() {
