@@ -3,9 +3,10 @@ package br.edu.ifpe.alvarium.ui.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,6 +20,8 @@ fun CriptoCard(
     acronym: String,
     price: String,
     imageUrl: String? = null,
+    isFavorite: Boolean,                    // 👈 novo
+    onToggleFavorite: () -> Unit,           // 👈 novo
     onClick: () -> Unit = {}
 ) {
 
@@ -26,9 +29,9 @@ fun CriptoCard(
         modifier = Modifier
             .fillMaxWidth(),
         onClick = onClick,
-        shape = RoundedCornerShape(20.dp), // igual ao print
-        color = Color(0xFF152342).copy(alpha = 0.65f), // azul translúcido
-        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.10f)), // borda suave
+        shape = RoundedCornerShape(20.dp),
+        color = Color(0xFF152342).copy(alpha = 0.65f),
+        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.10f)),
         tonalElevation = 0.dp
     ) {
 
@@ -55,7 +58,7 @@ fun CriptoCard(
                 Text(
                     text = acronym,
                     style = MaterialTheme.typography.bodySmall,
-                    color = Color(0xFF8E9BBF) // cinza-lavanda igual ao print
+                    color = Color(0xFF8E9BBF)
                 )
             }
 
@@ -64,8 +67,17 @@ fun CriptoCard(
             Text(
                 text = price,
                 style = MaterialTheme.typography.titleSmall,
-                color = Color(0xFF6F7CF6) // azul destaque do print
+                color = Color(0xFF6F7CF6)
             )
+
+            // ⭐ ÍCONE DE FAVORITO
+            IconButton(onClick = onToggleFavorite) {
+                Icon(
+                    imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                    contentDescription = null,
+                    tint = if (isFavorite) Color.Red else Color.White.copy(alpha = 0.6f)
+                )
+            }
         }
     }
 }

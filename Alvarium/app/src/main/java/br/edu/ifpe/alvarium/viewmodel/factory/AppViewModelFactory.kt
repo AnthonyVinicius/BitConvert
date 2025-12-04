@@ -7,8 +7,10 @@ import br.edu.ifpe.alvarium.data.local.AppDatabase
 import br.edu.ifpe.alvarium.data.remote.RetrofitInstance
 import br.edu.ifpe.alvarium.data.repository.ChartRepositoryImpl
 import br.edu.ifpe.alvarium.data.repository.CoinRepositoryImpl
+import br.edu.ifpe.alvarium.data.repository.FavoriteRepositoryImpl
 import br.edu.ifpe.alvarium.viewmodel.CoinViewModel
 import br.edu.ifpe.alvarium.viewmodel.DetailsViewModel
+import br.edu.ifpe.alvarium.viewmodel.FavoriteCoinViewModel
 
 class AppViewModelFactory(
     private val context: Context
@@ -23,6 +25,11 @@ class AppViewModelFactory(
             modelClass.isAssignableFrom(CoinViewModel::class.java) -> {
                 val repo = CoinRepositoryImpl(api, db.coinDao())
                 CoinViewModel(repo) as T
+            }
+
+            modelClass.isAssignableFrom(FavoriteCoinViewModel::class.java) -> {
+                val repo = FavoriteRepositoryImpl(db.favoriteCoinDao())
+                FavoriteCoinViewModel(repo) as T
             }
 
             modelClass.isAssignableFrom(DetailsViewModel::class.java) -> {

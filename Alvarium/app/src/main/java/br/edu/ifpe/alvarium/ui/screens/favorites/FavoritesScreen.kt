@@ -26,6 +26,8 @@ import br.edu.ifpe.alvarium.viewmodel.CoinViewModel
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.asPaddingValues
+import br.edu.ifpe.alvarium.domain.model.Coin
+import br.edu.ifpe.alvarium.viewmodel.FavoriteCoinViewModel
 import br.edu.ifpe.alvarium.viewmodel.factory.AppViewModelFactory
 
 @Composable
@@ -52,8 +54,14 @@ fun FavoritesScreen(onNavigateToDetails: (String) -> Unit) {
 
             val context = LocalContext.current
             val factory = AppViewModelFactory(context)
-            val viewModel: CoinViewModel = viewModel(factory = factory)
-            val coins by viewModel.coins.collectAsState()
+
+            val coinViewModel: CoinViewModel = viewModel(factory = factory)
+            val favoriteViewModel: FavoriteCoinViewModel = viewModel(factory = factory)
+
+            val allCoins by coinViewModel.coins.collectAsState()
+            val favoriteIds by favoriteViewModel.favoriteCoinIds.collectAsState()
+
+            val favoriteCoins = allCoins.filter { it.id in favoriteIds }
 
             Text(
                 text = "Favoritos",
@@ -67,19 +75,27 @@ fun FavoritesScreen(onNavigateToDetails: (String) -> Unit) {
                 color = Color.White.copy(alpha = 0.7f)
             )
 
-            if (coins.isEmpty()) {
-                Text("Carregando moedas...", color = Color.White)
+            if (favoriteCoins.isEmpty()) {
+                if (allCoins.isEmpty()) {
+                    Text("Carregando moedas...", color = Color.White)
+                } else {
+                    Text("Você ainda não tem moedas favoritas.", color = Color.White)
+                }
             } else {
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    items(coins) { coin ->
+                    items(favoriteCoins) { coin ->
                         CriptoCard(
                             name = coin.name,
                             acronym = coin.symbol.uppercase(),
                             price = "US$ ${coin.currentPrice}",
-                            imageUrl = coin.image
+                            imageUrl = coin.image,
+                            isFavorite = true,
+                            onToggleFavorite = {
+                                favoriteViewModel.toggleFavorite(coin)
+                            }
                         ) {
                             onNavigateToDetails(coin.id)
                         }

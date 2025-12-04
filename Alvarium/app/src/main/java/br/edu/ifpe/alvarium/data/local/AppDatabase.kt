@@ -5,16 +5,19 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import br.edu.ifpe.alvarium.data.local.dao.CoinDao
+import br.edu.ifpe.alvarium.data.local.dao.FavoriteCoinDao
 import br.edu.ifpe.alvarium.data.local.entity.CoinEntity
+import br.edu.ifpe.alvarium.data.local.entity.FavoriteCoinEntity
 
 @Database(
-    entities = [CoinEntity::class],
+    entities = [CoinEntity::class, FavoriteCoinEntity::class],
     version = 1,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun coinDao(): CoinDao
+    abstract fun favoriteCoinDao(): FavoriteCoinDao
 
     companion object {
         @Volatile
