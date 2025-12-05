@@ -11,7 +11,7 @@ import br.edu.ifpe.alvarium.data.local.entity.FavoriteCoinEntity
 
 @Database(
     entities = [CoinEntity::class, FavoriteCoinEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -29,7 +29,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "alvarium.db"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration() // <-- APAGA O BANCO E CRIA DE NOVO
+                    .build()
 
                 INSTANCE = instance
                 instance
