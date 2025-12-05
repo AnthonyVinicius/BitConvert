@@ -37,7 +37,7 @@ class DetailsViewModel(
             _chartData.value = repository.getChart(coinId, days)
         } catch (e: Exception) {
             println("Erro ao atualizar gráfico: ${e.message}")
-            delay(15000)
+            delay(60000)
         }
     }
 

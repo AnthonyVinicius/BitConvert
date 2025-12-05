@@ -25,7 +25,7 @@ class CoinViewModel(
         viewModelScope.launch {
             while (true) {
                 loadCoins()
-                delay(30000)
+                delay(60000)
             }
         }
     }
