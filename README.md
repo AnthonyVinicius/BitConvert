@@ -1,3 +1,4 @@
+
 # **Alvarium App** - Acompanhamento, Conversão e Favoritos de Criptomoedas
 
 Aplicativo mobile desenvolvido em **Kotlin** com **Jetpack Compose**, oferecendo uma interface moderna, fluida e intuitiva.  
@@ -81,3 +82,10 @@ git clone https://github.com/AnthonyVinicius/Projeto_Mobile.git
 4️⃣ Execute o app em um emulador ou dispositivo físico com Android 8+
 
 ⚠ É necessário acesso à internet para consultar preços em tempo real!
+```
+---
+## 📸 Capturas de Tela
+
+| Home | Detalhes | Favoritos | Conversão |
+|------|---------|-----------|-----------|
+| ![Home](./Alvarium/screenshots/home.jpeg) | ![Detalhes](./Alvarium/screenshots/details.jpeg) | ![Favoritos](./Alvarium/screenshots/favorites.jpeg) | ![Conversão](./Alvarium/screenshots/convert.jpeg) |
