@@ -72,7 +72,7 @@ app/
 ```bash
 1️⃣ Clone este repositório:
 
-git clone https://github.com/usuario/repositorio.git
+git clone https://github.com/AnthonyVinicius/Projeto_Mobile.git
 
 2️⃣ Abra o projeto no Android Studio
 
